@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Django - Calificaciones Alumnos</title>
+	<style>
+
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: Arial, Helvetica, sans-serif;
+		}
+
+		body {
+			background: linear-gradient(#ffffff, #e9e9e9);
+		}
+
+		h1, h2 {
+			color:rgb(0, 0, 0);
+		}
+
+		p {
+			color: #000000;
+		}
+
+		.lista {
+			padding: 2.5% 5%;
+		}
+
+		.materia-container {
+			display: inline-grid;
+			justify-content: space-between;
+			max-width: 100vw;
+			width: 100vw;
+		}
+
+		.card {
+			display: block;
+			margin: 0.5rem;
+			padding: 1.5rem 2.5rem;
+			border: 2px solid #969696;
+			border-radius: 15px;
+		}
+		
+		ol {
+			list-style: none;
+			padding: 0 2.5rem;
+			margin-top: 1rem;
+			color: #000000;
+		}
+
+		.materia {
+			font-weight: bold;
+			font-size: 1.2rem;
+		}
+
+		.nombre {
+			font-weight: bold;
+			font-size: 1rem;
+		}
+
+		form {
+			margin-top: 2rem;
+			padding: 2.5% 5%;
+		}
+
+		input[type=text] {
+			width: 100%;
+			padding: 12px 20px;
+			margin: 8px 0;
+			box-sizing: border-box;
+		}
+
+		input[type=text]:focus {
+			border: 3px solid #555;
+		}
+		
+		button {
+			padding: 1rem;
+			background: transparent;
+			color: #000000;
+			border-radius: 10px;
+			transition: background 250ms ease-in;  
+		}
+
+		button:hover {
+			background: #383838;
+			color: #ffffff;
+		}
+		
+
+	  </style>
+</head>
+<body>
+
+	<div class="lista">
+		<h1>Lista de Calificaciones</h1>
+
+		<div class="materia-container">
+
+			{% for item in calificaciones %}
+			<div class="card">
+
+				<p class="materia">{{ item.subject }}</p> 
+				<br>
+				<p class="nombre">{{ item.name }}</p>   
+				<ol>
+					<li>Calificación Unidad 1: {{ item.grade1 }}</li>
+					<li>Calificación Unidad 2: {{ item.grade2 }}</li>
+					<li>Calificación Unidad 3: {{ item.grade3 }}</li>
+				</ol>
+				<br>
+				<p class="materia">Promedio: {{ item.averag }}</p>
+				
+			</div>
+			{% endfor %}
+		
+		</div>
+	</div>
+
+	<br><hr>
+
+	<form method="POST" action="agregar">
+		<h2>Registrar nuevo estudiante</h2>
+
+		<br>
+
+		{% csrf_token %}
+
+		<p>Inserta el nombre del alumno:</p>
+		<input type="text" name="nombre">
+
+		<p>Materia:</p>
+		<input type="text" name="materia">
+
+		<p>Calificación 1:</p>
+		<input type="text" name="cal1">
+
+		<p>Calificación 2:</p>
+		<input type="text" name="cal2">
+
+		<p>Calificación 3:</p>
+		<input type="text" name="cal3">
+		<br><br>
+		<button type="submit">Registrar alumno</button>
+	</form>
+	
+</body>
+</html>
